@@ -5,3 +5,9 @@
 body {
   @apply font-sans;
 }
+
+@layer components {
+  .card {
+    @apply bg-tertiaryGray border-2 border-secondaryGray rounded-md;
+  }
+}

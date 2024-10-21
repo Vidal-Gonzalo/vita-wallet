@@ -7,9 +7,9 @@ const Layout: React.FC = () => {
     const shouldShowSidebar = location.pathname !== '/';
 
     return (
-        <div className={`h-screen ${!shouldShowSidebar && "flex mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28"}`}>
+        <div className={` ${!shouldShowSidebar ? "gap-12 mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28" : "w-full flex gap-12"}`}>
             {shouldShowSidebar && <Sidebar />}
-            <div className='h-full'>
+            <div className={`h-full w-full ${shouldShowSidebar ? "pl-[25%] pt-10 pr-14 ml-14" : "pt-0"}`}>
                 <Outlet />
             </div>
         </div>

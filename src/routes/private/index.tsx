@@ -1,6 +1,8 @@
+import Dashboard from "../../containers/Dashboard";
+
 export const privateRoutes = [
     {
         path: '/dashboard',
-        element: <p>dashboard</p>,
+        element: <Dashboard />,
     }
 ];
