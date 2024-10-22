@@ -1,11 +1,11 @@
-import moneyIncome from '../../../assets/illustrations/money-income.png'
+import moneyIncome from '/illustrations/money-income.png'
 import LoginForm from '../../../sections/LoginForm'
 
 const Login = () => {
 
     return (
         <div className='h-3/4 pt-10 2xl:pt-16'>
-            <div className=''>
+            <div className='relative'>
                 <h1 className="text-5xl font-semibold">Iniciar sesión</h1>
             </div>
             <div className="grid grid-cols-12 my-8">

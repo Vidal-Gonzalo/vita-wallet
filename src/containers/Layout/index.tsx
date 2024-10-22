@@ -5,7 +5,6 @@ import { Outlet } from 'react-router-dom';
 const Layout: React.FC = () => {
     const location = useLocation();
     const shouldShowSidebar = location.pathname !== '/';
-
     return (
         <div className={` ${!shouldShowSidebar ? "gap-12 mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-28" : "w-full flex gap-12"}`}>
             {shouldShowSidebar && <Sidebar />}

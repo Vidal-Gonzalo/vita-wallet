@@ -1,10 +1,12 @@
 import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
+import { getCredentials } from '../../lib/auth';
 
 function ProtectedRoute({ children }: React.PropsWithChildren) {
-    const isLoggedIn = true
     const { pathname } = useLocation();
-    if (!isLoggedIn && pathname) {
+    const isUserLogged = getCredentials()
+
+    if (!isUserLogged && pathname) {
         return <Navigate to={`/`} />;
     }
 

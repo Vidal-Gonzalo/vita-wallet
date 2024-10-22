@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { logout } from '../../lib/auth';
 
 interface SidebarItem {
     label: string;
@@ -19,6 +20,11 @@ const Sidebar = () => {
     const location = useLocation()
     const currentLocation = location.pathname
 
+    const handleLogout = () => {
+        logout()
+        navigate("/")
+    }
+
     return (
         <div className="bg-primaryColor w-1/4 bg-[url('./illustrations/sidebar.svg')] fixed top-0 left-0">
             <ul className='flex flex-col pt-20 h-screen relative'>
@@ -36,7 +42,7 @@ const Sidebar = () => {
                         </li>
                     ))}
                 </div>
-                <li className='text-white cursor-pointer absolute bottom-20 left-20' onClick={() => navigate("/")}>
+                <li className='text-white cursor-pointer absolute bottom-20 left-20' onClick={handleLogout}>
                     Cerrar sesión
                 </li>
             </ul>

@@ -1,2 +1,6 @@
 export {default as ProtectedRoute} from './ProtectedRoute'
 export {default as Sidebar} from './Sidebar'
+export {default as CardMoney} from './CardMoney'
+export {default as SelectInputCoin} from './MoneyInputs/SelectInputCoin'
+export {default as TextInputAmount} from './MoneyInputs/TextInputAmount'
+export { default as Modal} from './Modal'

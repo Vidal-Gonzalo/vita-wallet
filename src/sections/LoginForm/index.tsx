@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import hiddenEye from '../../assets/icons/hiddenEye.svg'
-import check from '../../assets/icons/check.svg'
-import eye from '../../assets/icons/eye.svg'
+import hiddenEye from '/icons/hiddenEye.svg'
+import check from '/icons/check.svg'
+import eye from '/icons/eye.svg'
 import { useNavigate } from 'react-router-dom'
+import { signIn } from '../../services/auth/login'
+import { useAuth } from '../../context/AuthContext'
 
 interface FormData {
     field: string,
@@ -16,6 +18,7 @@ const LoginForm = () => {
         { field: 'password', value: '', error: false }
     ]);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const { authError, setAuthError } = useAuth()
     const navigate = useNavigate()
 
     const validateEmail = (value: string) => {
@@ -44,13 +47,23 @@ const LoginForm = () => {
         );
     };
 
-    const emailField = formData.find(item => item.field === 'email');
-    const passwordField = formData.find(item => item.field === 'password');
+    const emailField = formData.find(item => item.field === 'email') ?? null;
+    const passwordField = formData.find(item => item.field === 'password') ?? null;
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(emailField, passwordField);
-        navigate("/dashboard")
+        const { value: email } = emailField ?? { value: null }
+        const { value: password } = passwordField ?? { value: null };
+        if (!email || !password) return;
+
+        try {
+            await signIn({ email, password });
+            navigate("/dashboard")
+        } catch (error: any) {
+            if (error && error.response) {
+                setAuthError({ error: true, message: error?.response?.data?.message })
+            }
+        }
     };
 
     return (
@@ -71,6 +84,11 @@ const LoginForm = () => {
                             />
                             {!emailField?.error && emailField?.value !== '' && <img src={check} alt="Valid email" />}
                         </label>
+                        <div className="label">
+                            <span className="label-text-alt text-red-500">
+                                {authError?.message.split(".")[0]}
+                            </span>
+                        </div>
                     </label>
                 </div>
                 <div className='flex w-3/4 flex-col gap-[5px]'>
@@ -103,7 +121,7 @@ const LoginForm = () => {
             <button
                 type="submit"
                 className={`btn text-white w-3/4 ${isFormValid
-                    ? 'bg-gradient-to-r from-[#05BCB9] to-[#167287]'
+                    ? 'bg-gradient-to-r from-[#090a0a] to-[#167287]'
                     : 'bg-secondaryGray'
                     }`}
                 disabled={!isFormValid}
