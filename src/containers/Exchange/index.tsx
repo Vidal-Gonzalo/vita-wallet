@@ -1,6 +1,7 @@
 import { Suspense, useState } from "react";
 import ExchangeValues from "./ExchangeValues";
 import ConfirmExchange from "./ConfirmExchange";
+import Loader from "../../components/Loader";
 
 const Exchange = () => {
     const [phase, setPhase] = useState<number>(1)
@@ -9,12 +10,18 @@ const Exchange = () => {
     }
     const phaseComponents: { [key: number]: JSX.Element } = {
         1: (
-            <Suspense fallback={"Cargando..."}>
+            <Suspense fallback={
+                <div className="w-full h-[80svh] flex flex-col items-center justify-center">
+                    <Loader />;
+                </div>
+            }>
                 <ExchangeValues redirectToNewPhase={redirectToNewPhase} />
             </Suspense>
         ),
         2: (
-            <Suspense fallback={"Cargando..."}>
+            <Suspense fallback={<div className="w-full h-[80svh] flex flex-col items-center justify-center">
+                <Loader />;
+            </div>}>
                 <ConfirmExchange redirectToNewPhase={redirectToNewPhase} />
             </Suspense>
         ),

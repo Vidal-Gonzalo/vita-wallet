@@ -12,7 +12,7 @@ import { getUserBalance } from '../../lib/utils'
 
 const CardList = () => {
     const { userData } = useUser()
-    const userBalances = getUserBalance(userData?.user.attributes?.balances)
+    const userBalances = getUserBalance(userData?.user?.attributes?.balances)
 
     return (
         <div className='w-full flex flex-col gap-4'>

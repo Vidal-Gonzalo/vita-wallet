@@ -1,12 +1,10 @@
 import { createContext, useContext, useState } from 'react';
 
 interface IAuthContext {
+    authCredentials: any;
+    setAuthCredentials: (data: any) => void;
     authError: AuthError
     setAuthError: (data: AuthError) => void
-}
-
-export interface AuthData {
-    attributes: any;
 }
 
 export interface AuthError {
@@ -17,10 +15,11 @@ export interface AuthError {
 const AuthContext = createContext<IAuthContext | null>(null);
 
 export const AuthProvider = ({ children }: { children: any }) => {
+    const [authCredentials, setAuthCredentials] = useState(null)
     const [authError, setAuthError] = useState<AuthError>({ error: false, message: "" })
 
     return (
-        <AuthContext.Provider value={{ authError, setAuthError }}>
+        <AuthContext.Provider value={{ authCredentials, setAuthCredentials, authError, setAuthError }}>
             {children}
         </AuthContext.Provider>
     );

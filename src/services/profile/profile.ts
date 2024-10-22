@@ -22,3 +22,17 @@ export const getProfileTransactions = async () => {
         console.error('Error in:', error);
     }
 }
+
+export const getDashboardData = async () => {
+    try {
+        const profileData = await axiosClient.get('/profile');
+        const transactionsData = await axiosClient.get('/transactions');
+
+        const transactions = transactionsData?.data;
+        const profile = profileData?.data?.data
+        return {transactions, profile}
+    } catch (error) {
+        console.error('Error in:', error);
+        return null;
+    }
+}

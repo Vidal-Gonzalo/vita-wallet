@@ -17,10 +17,10 @@ export const signIn = async ({email, password}: {email: string, password: string
             Cookies.set('expiry', expiry);
             Cookies.set('client', client);
 
-            return response;
+            return {accessToken, uid, expiry, client};
         });
 
-        const authData = response.data;
+        const authData = response;
         return authData
 
     } catch (error) {

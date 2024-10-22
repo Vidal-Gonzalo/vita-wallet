@@ -18,7 +18,7 @@ const LoginForm = () => {
         { field: 'password', value: '', error: false }
     ]);
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const { authError, setAuthError } = useAuth()
+    const { setAuthCredentials, authError, setAuthError } = useAuth()
     const navigate = useNavigate()
 
     const validateEmail = (value: string) => {
@@ -57,7 +57,8 @@ const LoginForm = () => {
         if (!email || !password) return;
 
         try {
-            await signIn({ email, password });
+            const authData = await signIn({ email, password });
+            setAuthCredentials(authData)
             navigate("/dashboard")
         } catch (error: any) {
             if (error && error.response) {
