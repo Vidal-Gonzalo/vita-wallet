@@ -59,6 +59,7 @@ const LoginForm = () => {
         try {
             const authData = await signIn({ email, password });
             setAuthCredentials(authData)
+            setAuthError({ error: false, message: "" })
             navigate("/dashboard")
         } catch (error: any) {
             if (error && error.response) {
